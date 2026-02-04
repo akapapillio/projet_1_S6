@@ -1,3 +1,7 @@
+/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/config/DatabaseConnection.java
+/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/controller/TestController.java
+/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/model/Test.java
+/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/repository/TestRepository.java
 /mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/test/HelloWorldController.java
 /mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/test/ServletInitializer.java
 /mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/test/TestApplication.java
