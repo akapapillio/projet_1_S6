@@ -1,0 +1,7 @@
+com/workflow/projet/controller/TestController.class
+com/workflow/projet/config/DatabaseConnection.class
+com/workflow/TestApplication.class
+com/workflow/projet/model/Test.class
+com/workflow/ServletInitializer.class
+com/workflow/projet/repository/TestRepository.class
+com/workflow/HelloWorldController.class
