@@ -53,12 +53,10 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- PostgreSQL Driver -->
+		<!-- Thymeleaf for HTML Views -->
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>42.7.1</version>
-			<scope>runtime</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 	</dependencies>
 

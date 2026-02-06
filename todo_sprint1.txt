@@ -1,0 +1,29 @@
+sprint1 :
+Liste déroulante hotel
+Script d'insertion hotel
+formulaire de reservation
+Liste reservation avec filtre par date
+
+scenario :
+mampiditra reservation -> hita ao am liste ilay reservation filtrer par date
+
+conception base :
+reservation {
+id
+id_client (4 chiffres)
+Nb_Passager
+Date_heure_arrivée
+id_hotel (foreign key)
+}
+
+hotel {
+id
+nom
+}
+
+
+comment : 
+BO : framework mvc pour l'insertion de reservation (base et retourne des fichier .json)
+FO : spring mvc, ao anaty framework no mandeha ny base, donc ny FO miantso api depuis le BO (le .json)
+
+donc pas de repository et connexion base (aucune accée à la base) dans le FO
