@@ -1,0 +1,48 @@
+[
+    {
+        "idReservation": 1,
+        "idClient": 1,
+        "nomClient": "Rasoaivo",
+        "nbPassager": 2,
+        "dateHeureArrivee": "2026-02-06 14:00:00",
+        "idHotel": 1,
+        "nomHotel": "Hotel Colbert"
+    },
+    {
+        "idReservation": 2,
+        "idClient": 2,
+        "nomClient": "Andriamamy",
+        "nbPassager": 3,
+        "dateHeureArrivee": "2026-02-06 10:30:00",
+        "idHotel": 2,
+        "nomHotel": "Hotel Carlton"
+    },
+    {
+        "idReservation": 3,
+        "idClient": 3,
+        "nomClient": "Ravaka",
+        "nbPassager": 1,
+        "dateHeureArrivee": "2026-02-07 16:00:00",
+        "idHotel": 3,
+        "nomHotel": "Hotel Le Louvre"
+    },
+    {
+        "idReservation": 4,
+        "idClient": 4,
+        "nomClient": "Tiana",
+        "nbPassager": 4,
+        "dateHeureArrivee": "2026-02-08 09:00:00",
+        "idHotel": 4,
+        "nomHotel": "Hotel Ibis"
+    },
+    {
+        "idReservation": 5,
+        "idClient": 1,
+        "nomClient": "Rasoaivo",
+        "nbPassager": 2,
+        "dateHeureArrivee": "2026-02-06 18:30:00",
+        "idHotel": 1,
+        "nomHotel": "Hotel Colbert"
+    }
+]
+

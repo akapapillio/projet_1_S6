@@ -1,7 +1,11 @@
-com/workflow/projet/controller/TestController.class
-com/workflow/projet/config/DatabaseConnection.class
-com/workflow/TestApplication.class
-com/workflow/projet/model/Test.class
+com/workflow/projet/service/ApiService$3.class
 com/workflow/ServletInitializer.class
-com/workflow/projet/repository/TestRepository.class
+com/workflow/projet/dto/HotelDTO.class
+com/workflow/projet/service/ApiService$2.class
+com/workflow/projet/controller/ReservationController.class
+com/workflow/projet/service/ApiService.class
+com/workflow/projet/service/ApiService$1.class
+com/workflow/TestApplication.class
+com/workflow/projet/dto/ClientDTO.class
+com/workflow/projet/dto/ReservationDTO.class
 com/workflow/HelloWorldController.class

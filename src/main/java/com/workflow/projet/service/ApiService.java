@@ -4,10 +4,15 @@ import com.workflow.projet.dto.ClientDTO;
 import com.workflow.projet.dto.HotelDTO;
 import com.workflow.projet.dto.ReservationDTO;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.ResponseEntity;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,32 +23,58 @@ public class ApiService {
     
     private final String BASE_URL = "http://localhost:8080/projet_1_s6/api";
     private RestTemplate restTemplate = new RestTemplate();
+    private ObjectMapper objectMapper = new ObjectMapper();
     
     // Mode mock pour les tests (activer avec useMock=true)
     private boolean useMock = true;
     
-    // Données simulées pour les tests
-    private List<ClientDTO> mockClients = Arrays.asList(
-        new ClientDTO(1, "Rasoaivo"),
-        new ClientDTO(2, "Andriamamy"),
-        new ClientDTO(3, "Ravaka"),
-        new ClientDTO(4, "Tiana")
-    );
+    // Données simulées (chargées depuis fichier JSON)
+    private List<ClientDTO> mockClients;
+    private List<HotelDTO> mockHotels;
+    private List<ReservationDTO> mockReservations;
     
-    private List<HotelDTO> mockHotels = Arrays.asList(
-        new HotelDTO(1, "Hotel Colbert"),
-        new HotelDTO(2, "Hotel Carlton"),
-        new HotelDTO(3, "Hotel Le Louvre"),
-        new HotelDTO(4, "Hotel Ibis")
-    );
+    public ApiService() {
+        loadMockData();
+    }
     
-    private List<ReservationDTO> mockReservations = Arrays.asList(
-        new ReservationDTO(1, 1, "Rasoaivo", 2, "2026-02-06 14:00:00", 1, "Hotel Colbert"),
-        new ReservationDTO(2, 2, "Andriamamy", 3, "2026-02-06 10:30:00", 2, "Hotel Carlton"),
-        new ReservationDTO(3, 3, "Ravaka", 1, "2026-02-07 16:00:00", 3, "Hotel Le Louvre"),
-        new ReservationDTO(4, 4, "Tiana", 4, "2026-02-08 09:00:00", 4, "Hotel Ibis"),
-        new ReservationDTO(5, 1, "Rasoaivo", 2, "2026-02-06 18:30:00", 1, "Hotel Colbert")
-    );
+    /**
+     * Charger les données mock depuis les fichiers JSON
+     */
+    private void loadMockData() {
+        try {
+            // Charger clients.json
+            ClassPathResource clientsResource = new ClassPathResource("mock_data/clients.json");
+            mockClients = objectMapper.readValue(clientsResource.getInputStream(), 
+                new TypeReference<List<ClientDTO>>() {});
+            
+            // Charger hotels.json
+            ClassPathResource hotelsResource = new ClassPathResource("mock_data/hotels.json");
+            mockHotels = objectMapper.readValue(hotelsResource.getInputStream(), 
+                new TypeReference<List<HotelDTO>>() {});
+            
+            // Charger reservations.json
+            ClassPathResource reservationsResource = new ClassPathResource("mock_data/reservations.json");
+            mockReservations = objectMapper.readValue(reservationsResource.getInputStream(), 
+                new TypeReference<List<ReservationDTO>>() {});
+                
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Données par défaut si échec de chargement
+            mockClients = Arrays.asList(
+                new ClientDTO(1, "Rasoaivo"),
+                new ClientDTO(2, "Andriamamy"),
+                new ClientDTO(3, "Ravaka"),
+                new ClientDTO(4, "Tiana")
+            );
+            mockHotels = Arrays.asList(
+                new HotelDTO(1, "Hotel Colbert"),
+                new HotelDTO(2, "Hotel Carlton"),
+                new HotelDTO(3, "Hotel Le Louvre"),
+                new HotelDTO(4, "Hotel Ibis")
+            );
+            mockReservations = new ArrayList<>();
+        }
+    }
 
     /**
      * Activer/désactiver le mode mock
