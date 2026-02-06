@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Réservation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            margin-bottom: 15px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulaire de Réservation</h1>
+    
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+    
+    <form th:action="@{/reservation/save}" method="post">
+        <!-- Liste déroulante Clients -->
+        <div class="form-group">
+            <label for="idClient">Client:</label>
+            <select id="idClient" name="idClient" required>
+                <option value="">Sélectionnez un client</option>
+                <option th:each="client : ${clients}" 
+                        th:value="${client.idClient}" 
+                        th:text="${client.nomClient}">
+                </option>
+            </select>
+        </div>
+        
+        <!-- Liste déroulante Hôtels -->
+        <div class="form-group">
+            <label for="idHotel">Hôtel:</label>
+            <select id="idHotel" name="idHotel" required>
+                <option value="">Sélectionnez un hôtel</option>
+                <option th:each="hotel : ${hotels}" 
+                        th:value="${hotel.idHotel}" 
+                        th:text="${hotel.nomHotel}">
+                </option>
+            </select>
+        </div>
+        
+        <!-- Champ Nombre de Passagers -->
+        <div class="form-group">
+            <label for="nbPassager">Nombre de Passagers:</label>
+            <input type="number" id="nbPassager" name="nbPassager" 
+                   min="1" max="10" required>
+        </div>
+        
+        <!-- Champ Date et Heure d'Arrivée -->
+        <div class="form-group">
+            <label for="dateHeureArrivee">Date et Heure d'Arrivée:</label>
+            <input type="datetime-local" id="dateHeureArrivee" 
+                   name="dateHeureArrivee" required>
+        </div>
+        
+        <button type="submit">Valider la Réservation</button>
+    </form>
+    
+    <a th:href="@{/reservation/liste}">Voir la liste des réservations</a>
+</body>
+</html>
+

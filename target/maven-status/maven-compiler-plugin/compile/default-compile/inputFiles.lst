@@ -1,8 +1,8 @@
 /mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/HelloWorldController.java
 /mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/ServletInitializer.java
 /mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/TestApplication.java
-/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/config/DatabaseConnection.java
-/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/controller/TestActionController.java
-/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/controller/TestController.java
-/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/model/Test.java
-/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/repository/TestRepository.java
+/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/controller/ReservationController.java
+/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/dto/ClientDTO.java
+/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/dto/HotelDTO.java
+/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/dto/ReservationDTO.java
+/mnt/Travail/Workflow_projet_S6/projet_1_S6/src/main/java/com/workflow/projet/service/ApiService.java
