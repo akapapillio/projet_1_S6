@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès Refusé</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .error-container {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 10px;
+            padding: 40px;
+        }
+        .error-icon {
+            font-size: 80px;
+            color: #721c24;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #721c24;
+            margin-bottom: 15px;
+        }
+        .error-message {
+            color: #721c24;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .error-code {
+            color: #856404;
+            font-size: 14px;
+            background-color: #fff3cd;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .help-text {
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-icon">🚫</div>
+        <h1>Accès Refusé</h1>
+        <p class="error-message" th:text="${reason}">Token invalide ou absent</p>
+        <div class="error-code">
+            Erreur 401 / 403
+        </div>
+        <p class="help-text">
+            Vous devez fournir un token valide pour accéder à cette ressource.<br>
+            Format URL: <code>/{votre_token}/reservation/...</code>
+        </p>
+    </div>
+</body>
+</html>

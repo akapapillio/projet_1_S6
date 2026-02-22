@@ -54,7 +54,7 @@
     
     <div th:if="${error}" class="error" th:text="${error}"></div>
     
-    <form th:action="@{/reservation/save}" method="post">
+    <form th:action="@{/{token}/reservation/save(token=${token})}" method="post">
         <!-- Liste déroulante Clients -->
         <div class="form-group">
             <label for="idClient">Client:</label>
@@ -96,7 +96,7 @@
         <button type="submit">Valider la Réservation</button>
     </form>
     
-    <a th:href="@{/reservation/liste}">Voir la liste des réservations</a>
+    <a th:href="@{/{token}/reservation/liste(token=${token})}">Voir la liste des réservations</a>
 </body>
 </html>
 

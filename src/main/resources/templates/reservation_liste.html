@@ -74,7 +74,7 @@
     
     <!-- Filtres -->
     <div class="filters">
-        <form th:action="@{/reservation/liste}" method="get">
+        <form th:action="@{/{token}/reservation/liste(token=${token})}" method="get">
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" th:value="${date}">
             
@@ -82,7 +82,7 @@
             <input type="time" id="heure" name="heure" th:value="${heure}">
             
             <button type="submit">Filtrer</button>
-            <a th:href="@{/reservation/liste}" style="margin-left: 15px;">Réinitialiser</a>
+            <a th:href="@{/{token}/reservation/liste(token=${token})}" style="margin-left: 15px;">Réinitialiser</a>
         </form>
     </div>
     
@@ -115,7 +115,7 @@
         </tbody>
     </table>
     
-    <a th:href="@{/reservation/formulaire}">Créer une nouvelle réservation</a>
+    <a th:href="@{/{token}/reservation/formulaire(token=${token})}">Créer une nouvelle réservation</a>
 </body>
 </html>
 
