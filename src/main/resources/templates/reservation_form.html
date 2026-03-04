@@ -54,7 +54,14 @@
     
     <div th:if="${error}" class="error" th:text="${error}"></div>
     
-    <form th:action="@{/{token}/reservation/save(token=${token})}" method="post">
+    <form id="reservationForm" method="post">
+        <!-- Champ Token caché (sera rempli par JavaScript) -->
+        <div class="form-group">
+            <label for="token">Token d'accès:</label>
+            <input type="text" id="token" name="token" required 
+                   placeholder="Entrez votre token..." 
+                   style="background-color: #fff3cd; border: 2px solid #ffc107;">
+        </div>
         <!-- Liste déroulante Clients -->
         <div class="form-group">
             <label for="idClient">Client:</label>
@@ -96,7 +103,21 @@
         <button type="submit">Valider la Réservation</button>
     </form>
     
-    <a th:href="@{/{token}/reservation/liste(token=${token})}">Voir la liste des réservations</a>
+    <a href="/reservation/liste">Voir la liste des réservations (Token requis)</a>
+    
+    <script>
+        // Soumettre le formulaire avec le token dans l'URL
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const token = document.getElementById('token').value;
+            if (token) {
+                this.action = '/main/' + token + '/reservation/save';
+                this.submit();
+            } else {
+                alert('Veuillez saisir un token valide');
+            }
+        });
+    </script>
 </body>
 </html>
 

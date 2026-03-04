@@ -106,14 +106,22 @@ public class ApiService {
     }
 
     /**
-     * Construire l'URL avec token
-     * Format: http://localhost:8080/projet_1_s6/{token}/api/endpoint
+     * Construire l'URL avec token pour les réservations
+     * Format: http://localhost:8080/projet_1_s6/main/{token}/api/endpoint
      */
-    private String buildUrlWithToken(String endpoint) {
+    private String buildReservationUrlWithToken(String endpoint) {
         if (currentToken == null || currentToken.isEmpty()) {
             throw new TokenException(TokenError.TOKEN_ABSENT);
         }
-        return BASE_URL + "/" + currentToken + "/api" + endpoint;
+        return BASE_URL + "/main/" + currentToken + "/api" + endpoint;
+    }
+
+    /**
+     * Construire l'URL sans token pour clients et hôtels
+     * Format: http://localhost:8080/projet_1_s6/api/endpoint
+     */
+    private String buildPublicUrl(String endpoint) {
+        return BASE_URL + "/api" + endpoint;
     }
 
     /**
@@ -134,14 +142,14 @@ public class ApiService {
     }
 
     /**
-     * Récupérer tous les clients
+     * Récupérer tous les clients (SANS TOKEN)
      */
     public List<ClientDTO> getAllClients() {
         if (useMock) {
             return mockClients;
         }
         try {
-            String url = buildUrlWithToken("/clients");
+            String url = buildPublicUrl("/clients");
             ResponseEntity<ClientDTO[]> response = restTemplate.getForEntity(url, ClientDTO[].class);
             return Arrays.asList(response.getBody());
         } catch (HttpClientErrorException e) {
@@ -151,14 +159,14 @@ public class ApiService {
     }
 
     /**
-     * Récupérer tous les hôtels
+     * Récupérer tous les hôtels (SANS TOKEN)
      */
     public List<HotelDTO> getAllHotels() {
         if (useMock) {
             return mockHotels;
         }
         try {
-            String url = buildUrlWithToken("/hotels");
+            String url = buildPublicUrl("/hotels");
             ResponseEntity<HotelDTO[]> response = restTemplate.getForEntity(url, HotelDTO[].class);
             return Arrays.asList(response.getBody());
         } catch (HttpClientErrorException e) {
@@ -168,14 +176,14 @@ public class ApiService {
     }
 
     /**
-     * Récupérer toutes les réservations
+     * Récupérer toutes les réservations (AVEC TOKEN)
      */
     public List<ReservationDTO> getAllReservations() {
         if (useMock) {
             return mockReservations;
         }
         try {
-            String url = buildUrlWithToken("/reservations");
+            String url = buildReservationUrlWithToken("/reservations");
             ResponseEntity<ReservationDTO[]> response = restTemplate.getForEntity(url, ReservationDTO[].class);
             return Arrays.asList(response.getBody());
         } catch (HttpClientErrorException e) {
@@ -185,7 +193,7 @@ public class ApiService {
     }
 
     /**
-     * Récupérer les réservations par date
+     * Récupérer les réservations par date (AVEC TOKEN)
      * @param date Format: YYYY-MM-DD
      */
     public List<ReservationDTO> getReservationsByDate(String date) {
@@ -196,7 +204,7 @@ public class ApiService {
                 .collect(Collectors.toList());
         }
         try {
-            String url = buildUrlWithToken("/reservations/date/" + date);
+            String url = buildReservationUrlWithToken("/reservations/date/" + date);
             ResponseEntity<ReservationDTO[]> response = restTemplate.getForEntity(url, ReservationDTO[].class);
             return Arrays.asList(response.getBody());
         } catch (HttpClientErrorException e) {
@@ -206,7 +214,7 @@ public class ApiService {
     }
 
     /**
-     * Créer une nouvelle réservation
+     * Créer une nouvelle réservation (AVEC TOKEN)
      */
     public ReservationDTO createReservation(ReservationDTO reservation) {
         if (useMock) {
@@ -238,7 +246,7 @@ public class ApiService {
             return reservation;
         }
         try {
-            String url = buildUrlWithToken("/reservations");
+            String url = buildReservationUrlWithToken("/reservations");
             return restTemplate.postForObject(url, reservation, ReservationDTO.class);
         } catch (HttpClientErrorException e) {
             handleHttpError(e);

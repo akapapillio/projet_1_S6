@@ -32,39 +32,33 @@ public class ReservationController {
     }
 
     /**
-     * Affiche le formulaire de réservation avec token
-     * URL: /{token}/reservation/formulaire
+     * Affiche le formulaire de réservation (SANS TOKEN)
+     * Clients et hôtels sont publics
      */
-    @GetMapping("/{token}/reservation/formulaire")
-    public String showFormulaire(@PathVariable("token") String token, Model model) {
+    @GetMapping("/reservation/formulaire")
+    public String showFormulaire(Model model) {
         try {
-            apiService.setToken(token);
-            
-            // Récupérer les clients et hôtels depuis le BO
+            // Récupérer les clients et hôtels (pas de token requis)
             List<ClientDTO> clients = apiService.getAllClients();
             List<HotelDTO> hotels = apiService.getAllHotels();
             
             model.addAttribute("clients", clients);
             model.addAttribute("hotels", hotels);
             model.addAttribute("reservation", new ReservationDTO());
-            model.addAttribute("token", token);
             
             return "reservation_form";
-        } catch (TokenException e) {
-            return "redirect:/acces-refuse?reason=" + e.getMessage();
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Erreur lors du chargement des données");
-            model.addAttribute("token", token);
             return "reservation_form";
         }
     }
 
     /**
-     * Traite la soumission du formulaire de réservation avec token
-     * URL: /{token}/reservation/save
+     * Traite la soumission du formulaire (AVEC TOKEN REQUIS)
+     * URL: /main/{token}/reservation/save
      */
-    @PostMapping("/{token}/reservation/save")
+    @PostMapping("/main/{token}/reservation/save")
     public String saveReservation(
             @PathVariable("token") String token,
             @RequestParam("idClient") int idClient,
@@ -82,26 +76,25 @@ public class ReservationController {
             reservation.setNbPassager(nbPassager);
             reservation.setDateHeureArrivee(dateHeureArrivee);
             
-            // Envoyer au BO
+            // Envoyer au BO (nécessite un token)
             apiService.createReservation(reservation);
             
             // Rediriger vers la liste avec le même token
-            return "redirect:/" + token + "/reservation/liste";
+            return "redirect:/main/" + token + "/reservation/liste";
         } catch (TokenException e) {
             return "redirect:/acces-refuse?reason=" + e.getMessage();
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Erreur lors de la création de la réservation");
-            model.addAttribute("token", token);
-            return showFormulaire(token, model);
+            return showFormulaire(model);
         }
     }
 
     /**
-     * Affiche la liste des réservations avec token
-     * URL: /{token}/reservation/liste
+     * Affiche la liste des réservations (AVEC TOKEN REQUIS)
+     * URL: /main/{token}/reservation/liste
      */
-    @GetMapping("/{token}/reservation/liste")
+    @GetMapping("/main/{token}/reservation/liste")
     public String showListe(
             @PathVariable("token") String token,
             @RequestParam(value = "date", required = false) String date,
@@ -144,16 +137,11 @@ public class ReservationController {
         }
     }
 
-    // ============ Endpoints sans token (redirige vers accès refusé) ============
-
-    @GetMapping("/reservation/formulaire")
-    public String showFormulaireNoToken() {
-        return "redirect:/acces-refuse?reason=Token absent";
-    }
+    // ============ Endpoints sans token redirigent ============
 
     @GetMapping("/reservation/liste")
     public String showListeNoToken() {
-        return "redirect:/acces-refuse?reason=Token absent";
+        return "redirect:/acces-refuse?reason=Token requis pour voir les réservations";
     }
 }
 
