@@ -3,11 +3,15 @@ package com.workflow.projet.service;
 import com.workflow.projet.dto.ClientDTO;
 import com.workflow.projet.dto.HotelDTO;
 import com.workflow.projet.dto.ReservationDTO;
+import com.workflow.projet.exception.TokenException;
+import com.workflow.projet.exception.TokenException.TokenError;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -21,12 +25,16 @@ import java.util.stream.Collectors;
 @Service
 public class ApiService {
     
-    private final String BASE_URL = "http://localhost:8080/projet_1_s6/api";
+    // URL de base du BackOffice (sans token)
+    private final String BASE_URL = "http://localhost:8080/projet_1_s6";
     private RestTemplate restTemplate = new RestTemplate();
     private ObjectMapper objectMapper = new ObjectMapper();
     
+    // Token courant pour les appels API
+    private String currentToken;
+    
     // Mode mock pour les tests (activer avec useMock=true)
-    private boolean useMock = true;
+    private boolean useMock = false;
     
     // Données simulées (chargées depuis fichier JSON)
     private List<ClientDTO> mockClients;
@@ -84,43 +92,108 @@ public class ApiService {
     }
 
     /**
-     * Récupérer tous les clients
+     * Définir le token pour les appels API
+     */
+    public void setToken(String token) {
+        this.currentToken = token;
+    }
+
+    /**
+     * Obtenir le token courant
+     */
+    public String getToken() {
+        return this.currentToken;
+    }
+
+    /**
+     * Construire l'URL avec token pour les réservations
+     * Format: http://localhost:8080/projet_1_s6/main/{token}/api/endpoint
+     */
+    private String buildReservationUrlWithToken(String endpoint) {
+        if (currentToken == null || currentToken.isEmpty()) {
+            throw new TokenException(TokenError.TOKEN_ABSENT);
+        }
+        return BASE_URL + "/main/" + currentToken + "/api" + endpoint;
+    }
+
+    /**
+     * Construire l'URL sans token pour clients et hôtels
+     * Format: http://localhost:8080/projet_1_s6/api/endpoint
+     */
+    private String buildPublicUrl(String endpoint) {
+        return BASE_URL + "/api" + endpoint;
+    }
+
+    /**
+     * Gérer les erreurs HTTP liées au token
+     */
+    private void handleHttpError(HttpClientErrorException e) {
+        if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+            throw new TokenException(TokenError.TOKEN_ABSENT);
+        } else if (e.getStatusCode() == HttpStatus.FORBIDDEN) {
+            // Vérifier le message d'erreur pour distinguer invalide/révoqué
+            String body = e.getResponseBodyAsString();
+            if (body != null && body.toLowerCase().contains("revoked")) {
+                throw new TokenException(TokenError.TOKEN_REVOQUE);
+            }
+            throw new TokenException(TokenError.TOKEN_INVALIDE);
+        }
+        throw e;
+    }
+
+    /**
+     * Récupérer tous les clients (SANS TOKEN)
      */
     public List<ClientDTO> getAllClients() {
         if (useMock) {
             return mockClients;
         }
-        String url = BASE_URL + "/clients";
-        ResponseEntity<ClientDTO[]> response = restTemplate.getForEntity(url, ClientDTO[].class);
-        return Arrays.asList(response.getBody());
+        try {
+            String url = buildPublicUrl("/clients");
+            ResponseEntity<ClientDTO[]> response = restTemplate.getForEntity(url, ClientDTO[].class);
+            return Arrays.asList(response.getBody());
+        } catch (HttpClientErrorException e) {
+            handleHttpError(e);
+            return List.of();
+        }
     }
 
     /**
-     * Récupérer tous les hôtels
+     * Récupérer tous les hôtels (SANS TOKEN)
      */
     public List<HotelDTO> getAllHotels() {
         if (useMock) {
             return mockHotels;
         }
-        String url = BASE_URL + "/hotels";
-        ResponseEntity<HotelDTO[]> response = restTemplate.getForEntity(url, HotelDTO[].class);
-        return Arrays.asList(response.getBody());
+        try {
+            String url = buildPublicUrl("/hotels");
+            ResponseEntity<HotelDTO[]> response = restTemplate.getForEntity(url, HotelDTO[].class);
+            return Arrays.asList(response.getBody());
+        } catch (HttpClientErrorException e) {
+            handleHttpError(e);
+            return List.of();
+        }
     }
 
     /**
-     * Récupérer toutes les réservations
+     * Récupérer toutes les réservations (AVEC TOKEN)
      */
     public List<ReservationDTO> getAllReservations() {
         if (useMock) {
             return mockReservations;
         }
-        String url = BASE_URL + "/reservations";
-        ResponseEntity<ReservationDTO[]> response = restTemplate.getForEntity(url, ReservationDTO[].class);
-        return Arrays.asList(response.getBody());
+        try {
+            String url = buildReservationUrlWithToken("/reservations");
+            ResponseEntity<ReservationDTO[]> response = restTemplate.getForEntity(url, ReservationDTO[].class);
+            return Arrays.asList(response.getBody());
+        } catch (HttpClientErrorException e) {
+            handleHttpError(e);
+            return List.of();
+        }
     }
 
     /**
-     * Récupérer les réservations par date
+     * Récupérer les réservations par date (AVEC TOKEN)
      * @param date Format: YYYY-MM-DD
      */
     public List<ReservationDTO> getReservationsByDate(String date) {
@@ -130,13 +203,18 @@ public class ApiService {
                     && r.getDateHeureArrivee().startsWith(date))
                 .collect(Collectors.toList());
         }
-        String url = BASE_URL + "/reservations/date/" + date;
-        ResponseEntity<ReservationDTO[]> response = restTemplate.getForEntity(url, ReservationDTO[].class);
-        return Arrays.asList(response.getBody());
+        try {
+            String url = buildReservationUrlWithToken("/reservations/date/" + date);
+            ResponseEntity<ReservationDTO[]> response = restTemplate.getForEntity(url, ReservationDTO[].class);
+            return Arrays.asList(response.getBody());
+        } catch (HttpClientErrorException e) {
+            handleHttpError(e);
+            return List.of();
+        }
     }
 
     /**
-     * Créer une nouvelle réservation (mock: ajoute à la liste locale)
+     * Créer une nouvelle réservation (AVEC TOKEN)
      */
     public ReservationDTO createReservation(ReservationDTO reservation) {
         if (useMock) {
@@ -167,8 +245,13 @@ public class ApiService {
             
             return reservation;
         }
-        String url = BASE_URL + "/reservations";
-        return restTemplate.postForObject(url, reservation, ReservationDTO.class);
+        try {
+            String url = buildReservationUrlWithToken("/reservations");
+            return restTemplate.postForObject(url, reservation, ReservationDTO.class);
+        } catch (HttpClientErrorException e) {
+            handleHttpError(e);
+            return null;
+        }
     }
 }
 
