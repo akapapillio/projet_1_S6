@@ -3,6 +3,7 @@ package com.workflow.projet.dto;
 public class HotelDTO {
     private int idHotel;
     private String nomHotel;
+    private int idLieu;
 
     public HotelDTO() {}
 
@@ -20,6 +21,10 @@ public class HotelDTO {
         return nomHotel;
     }
 
+    public int getIdLieu() {
+        return idLieu;
+    }
+
     // Setters
     public void setIdHotel(int idHotel) {
         this.idHotel = idHotel;
@@ -27,6 +32,10 @@ public class HotelDTO {
 
     public void setNomHotel(String nomHotel) {
         this.nomHotel = nomHotel;
+    }
+
+    public void setIdLieu(int idLieu) {
+        this.idLieu= idLieu;
     }
 }
 
