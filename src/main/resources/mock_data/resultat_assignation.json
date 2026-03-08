@@ -1,0 +1,45 @@
+[
+    {
+      "idAssignation": 1,
+  
+      "vehicule": {
+        "idVehicule": 1,
+        "modele": "Toyota Hiace",
+        "capacite": 12,
+        "carburant": "Diesel"
+      },
+  
+      "dateHeureDepart": "2026-02-06 13:30:00",
+      "dateHeureRetour": "2026-02-06 15:00:00",
+  
+      "reservations": [
+        {
+          "idReservation": 1,
+          "nomClient": "Rasoaivo",
+          "nbPassager": 2,
+          "lieu": "Hotel Colbert",
+          "dateHeureArrivee": "2026-02-06 14:00:00"
+        },
+        {
+          "idReservation": 2,
+          "nomClient": "Andriamamy",
+          "nbPassager": 3,
+          "lieu": "Hotel Carlton",
+          "dateHeureArrivee": "2026-02-06 10:30:00"
+        }
+      ],
+  
+      "ordreArrets": [
+        {
+          "ordre": 1,
+          "depart": "Aeroport Ivato",
+          "arrivee": "Hotel Colbert"
+        },
+        {
+          "ordre": 2,
+          "depart": "Hotel Colbert",
+          "arrivee": "Hotel Carlton"
+        }
+      ]
+    }
+  ]

@@ -1,0 +1,30 @@
+[
+    {
+      "idVehicule": 1,
+      "model": "Toyota Hiace",
+      "nbPlace": 12,
+      "idCarburant": 2,
+      "nomCarburant": "Diesel"
+    },
+    {
+      "idVehicule": 2,
+      "model": "Hyundai Starex",
+      "nbPlace": 10,
+      "idCarburant": 2,
+      "nomCarburant": "Diesel"
+    },
+    {
+      "idVehicule": 3,
+      "model": "Dacia Logan",
+      "nbPlace": 4,
+      "idCarburant": 1,
+      "nomCarburant": "Essence"
+    },
+    {
+      "idVehicule": 4,
+      "model": "Tesla Model Y",
+      "nbPlace": 5,
+      "idCarburant": 3,
+      "nomCarburant": "Electrique"
+    }
+  ]

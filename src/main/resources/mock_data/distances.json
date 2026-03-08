@@ -1,0 +1,30 @@
+[
+    {
+      "idDistance": 1,
+      "temps": "00:25:00",
+      "distance": 18.5,
+      "idLieuDepart": 0,
+      "idLieuArrivee": 1
+    },
+    {
+      "idDistance": 2,
+      "temps": "00:30:00",
+      "distance": 20.1,
+      "idLieuDepart": 0,
+      "idLieuArrivee": 2
+    },
+    {
+      "idDistance": 3,
+      "temps": "00:22:00",
+      "distance": 16.8,
+      "idLieuDepart": 0,
+      "idLieuArrivee": 3
+    },
+    {
+      "idDistance": 4,
+      "temps": "00:35:00",
+      "distance": 24.2,
+      "idLieuDepart": 0,
+      "idLieuArrivee": 4
+    }
+  ]

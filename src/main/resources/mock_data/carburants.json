@@ -1,0 +1,5 @@
+[
+    {"idCarburant": 1, "nomCarburant": "Essence"},
+    {"idCarburant": 2, "nomCarburant": "Diesel"},
+    {"idCarburant": 3, "nomCarburant": "Electrique"}
+  ]

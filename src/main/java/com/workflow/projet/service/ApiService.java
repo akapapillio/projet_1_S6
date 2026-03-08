@@ -1,8 +1,7 @@
 package com.workflow.projet.service;
 
-import com.workflow.projet.dto.ClientDTO;
-import com.workflow.projet.dto.HotelDTO;
-import com.workflow.projet.dto.ReservationDTO;
+import com.workflow.projet.dto.*;
+import com.workflow.projet.dto.vehicule.*;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -13,162 +12,343 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class ApiService {
-    
+
     private final String BASE_URL = "http://localhost:8080/projet_1_s6/api";
+
     private RestTemplate restTemplate = new RestTemplate();
     private ObjectMapper objectMapper = new ObjectMapper();
-    
-    // Mode mock pour les tests (activer avec useMock=true)
+
     private boolean useMock = true;
-    
-    // Données simulées (chargées depuis fichier JSON)
+
+    // MOCK DATA
     private List<ClientDTO> mockClients;
     private List<HotelDTO> mockHotels;
     private List<ReservationDTO> mockReservations;
-    
+    private List<VehiculeDTO> mockVehicules;
+    private ParamVehiculeDTO mockParamVehicule;
+    private List<CarburantDTO> mockCarburants;
+
     public ApiService() {
         loadMockData();
     }
-    
+
     /**
-     * Charger les données mock depuis les fichiers JSON
+     * Chargement des données mock
      */
     private void loadMockData() {
         try {
-            // Charger clients.json
-            ClassPathResource clientsResource = new ClassPathResource("mock_data/clients.json");
-            mockClients = objectMapper.readValue(clientsResource.getInputStream(), 
-                new TypeReference<List<ClientDTO>>() {});
-            
-            // Charger hotels.json
-            ClassPathResource hotelsResource = new ClassPathResource("mock_data/hotels.json");
-            mockHotels = objectMapper.readValue(hotelsResource.getInputStream(), 
-                new TypeReference<List<HotelDTO>>() {});
-            
-            // Charger reservations.json
-            ClassPathResource reservationsResource = new ClassPathResource("mock_data/reservations.json");
-            mockReservations = objectMapper.readValue(reservationsResource.getInputStream(), 
-                new TypeReference<List<ReservationDTO>>() {});
-                
-        } catch (IOException e) {
+
+            mockClients = readList("mock_data/clients.json", new TypeReference<List<ClientDTO>>() {});
+            mockHotels = readList("mock_data/hotels.json", new TypeReference<List<HotelDTO>>() {});
+            mockReservations = readList("mock_data/reservations.json", new TypeReference<List<ReservationDTO>>() {});
+            mockVehicules = readList("mock_data/vehicules.json", new TypeReference<List<VehiculeDTO>>() {});
+
+            ClassPathResource paramResource = new ClassPathResource("mock_data/paramVehicule.json");
+            mockParamVehicule = objectMapper.readValue(paramResource.getInputStream(), ParamVehiculeDTO.class);
+
+        } catch (Exception e) {
             e.printStackTrace();
-            // Données par défaut si échec de chargement
+
             mockClients = Arrays.asList(
-                new ClientDTO(1, "Rasoaivo"),
-                new ClientDTO(2, "Andriamamy"),
-                new ClientDTO(3, "Ravaka"),
-                new ClientDTO(4, "Tiana")
+                    new ClientDTO(1, "Rasoaivo"),
+                    new ClientDTO(2, "Andriamamy")
             );
+
             mockHotels = Arrays.asList(
-                new HotelDTO(1, "Hotel Colbert"),
-                new HotelDTO(2, "Hotel Carlton"),
-                new HotelDTO(3, "Hotel Le Louvre"),
-                new HotelDTO(4, "Hotel Ibis")
+                    new HotelDTO(1, "Hotel Colbert"),
+                    new HotelDTO(2, "Hotel Carlton")
             );
+
             mockReservations = new ArrayList<>();
+            mockVehicules = new ArrayList<>();
+
+            mockParamVehicule = new ParamVehiculeDTO(1, 40, 10);
         }
     }
 
-    /**
-     * Activer/désactiver le mode mock
-     */
+    private <T> List<T> readList(String path, TypeReference<List<T>> type) throws IOException {
+        ClassPathResource resource = new ClassPathResource(path);
+        return objectMapper.readValue(resource.getInputStream(), type);
+    }
+
     public void setMockMode(boolean useMock) {
         this.useMock = useMock;
     }
 
     /**
-     * Récupérer tous les clients
+     * CLIENTS
      */
     public List<ClientDTO> getAllClients() {
-        if (useMock) {
-            return mockClients;
-        }
+
+        if (useMock) return mockClients;
+
         String url = BASE_URL + "/clients";
-        ResponseEntity<ClientDTO[]> response = restTemplate.getForEntity(url, ClientDTO[].class);
+        ResponseEntity<ClientDTO[]> response =
+                restTemplate.getForEntity(url, ClientDTO[].class);
+
         return Arrays.asList(response.getBody());
     }
 
     /**
-     * Récupérer tous les hôtels
+     * LIEUX (HOTELS)
      */
     public List<HotelDTO> getAllHotels() {
-        if (useMock) {
-            return mockHotels;
-        }
+
+        if (useMock) return mockHotels;
+
         String url = BASE_URL + "/hotels";
-        ResponseEntity<HotelDTO[]> response = restTemplate.getForEntity(url, HotelDTO[].class);
+        ResponseEntity<HotelDTO[]> response =
+                restTemplate.getForEntity(url, HotelDTO[].class);
+
+        return Arrays.asList(response.getBody());
+    }
+
+    public void saveHotel(HotelDTO hotel) {
+
+        if (useMock) {
+            mockHotels.add(hotel);
+            return;
+        }
+    
+        String url = BASE_URL + "/hotels";
+    
+        restTemplate.postForObject(url, hotel, HotelDTO.class);
+    }
+    public void updateHotel(HotelDTO hotel) {
+
+        if (useMock) {
+    
+            mockHotels.stream()
+                .filter(h -> h.getIdHotel() == hotel.getIdHotel())
+                .forEach(h -> {
+                    h.setIdLieu(hotel.getIdLieu());
+                    h.setNomHotel(hotel.getNomHotel());
+                });
+    
+            return;
+        }
+    
+        String url = BASE_URL + "/hotels";
+    
+        restTemplate.put(url, hotel);
+    }
+    /**
+     * VEHICULES
+     */
+    public List<VehiculeDTO> getAllVehicules() {
+
+        if (useMock) return mockVehicules;
+
+        String url = BASE_URL + "/vehicules";
+
+        ResponseEntity<VehiculeDTO[]> response =
+                restTemplate.getForEntity(url, VehiculeDTO[].class);
+
+        return Arrays.asList(response.getBody());
+    }
+    public void saveVehicule(VehiculeDTO v) {
+        if(useMock) {
+            int newId = mockVehicules.size() + 1;
+            v.setIdVehicule(newId);
+            mockVehicules.add(v);
+            return;
+        }
+        restTemplate.postForObject(BASE_URL + "/vehicules", v, VehiculeDTO.class);
+    }
+    
+    public void updateVehicule(VehiculeDTO v) {
+        if(useMock) {
+            mockVehicules.stream()
+                .filter(x -> x.getIdVehicule() == v.getIdVehicule())
+                .findFirst()
+                .ifPresent(x -> {
+                    x.setModel(v.getModel());
+                    x.setNbPlace(v.getNbPlace());
+                    x.setIdCarburant(v.getIdCarburant());
+                });
+            return;
+        }
+        restTemplate.put(BASE_URL + "/vehicules", v);
+    }
+
+    /**
+     * Récupérer la liste des carburants
+     */
+    public List<CarburantDTO> getCarburants() {
+
+        if (useMock) {
+            // Données mock
+            if (mockCarburants == null) {
+                mockCarburants = new ArrayList<>();
+                mockCarburants.add(new CarburantDTO(1, "Essence"));
+                mockCarburants.add(new CarburantDTO(2, "Diesel"));
+                mockCarburants.add(new CarburantDTO(3, "Electrique"));
+            }
+            return mockCarburants;
+        }
+
+        // Appel API réel
+        String url = BASE_URL + "/carburants";
+        ResponseEntity<CarburantDTO[]> response = restTemplate.getForEntity(url, CarburantDTO[].class);
         return Arrays.asList(response.getBody());
     }
 
     /**
-     * Récupérer toutes les réservations
+     * PARAM VEHICULE
+     */
+    public ParamVehiculeDTO getParamVehicule() {
+
+        if (useMock) return mockParamVehicule;
+
+        String url = BASE_URL + "/param_vehicule";
+
+        return restTemplate.getForObject(url, ParamVehiculeDTO.class);
+    }
+
+    public void updateParamVehicule(ParamVehiculeDTO param) {
+        if (useMock) {
+            // Mettre à jour le mock
+            mockParamVehicule.setVitessMoyenne(param.getVitessMoyenne());
+            mockParamVehicule.setTempsAttente(param.getTempsAttente());
+            return;
+        }
+    
+        // Sinon, envoyer au backend réel
+        String url = BASE_URL + "/param-vehicule";
+        restTemplate.postForObject(url, param, ParamVehiculeDTO.class);
+    }
+
+    /**
+     * RESERVATIONS
      */
     public List<ReservationDTO> getAllReservations() {
+
+        if (useMock) return mockReservations;
+
+        String url = BASE_URL + "/reservations";
+
+        ResponseEntity<ReservationDTO[]> response =
+                restTemplate.getForEntity(url, ReservationDTO[].class);
+
+        return Arrays.asList(response.getBody());
+    }
+
+    /**
+     * FILTRE DATE
+     */
+    public List<ReservationDTO> getReservationsByDate(String date) {
+
+        if (useMock) {
+            return mockReservations.stream()
+                    .filter(r -> r.getDateHeureArrivee() != null &&
+                            r.getDateHeureArrivee().startsWith(date))
+                    .collect(Collectors.toList());
+        }
+
+        String url = BASE_URL + "/reservations/date/" + date;
+
+        ResponseEntity<ReservationDTO[]> response =
+                restTemplate.getForEntity(url, ReservationDTO[].class);
+
+        return Arrays.asList(response.getBody());
+    }
+
+    /**
+     * RESERVATIONS NON ASSIGNEES
+     */
+    public List<ReservationDTO> getReservationsNonAssignees() {
+
         if (useMock) {
             return mockReservations;
         }
-        String url = BASE_URL + "/reservations";
-        ResponseEntity<ReservationDTO[]> response = restTemplate.getForEntity(url, ReservationDTO[].class);
+
+        String url = BASE_URL + "/reservations/non-assignees";
+
+        ResponseEntity<ReservationDTO[]> response =
+                restTemplate.getForEntity(url, ReservationDTO[].class);
+
         return Arrays.asList(response.getBody());
     }
 
     /**
-     * Récupérer les réservations par date
-     * @param date Format: YYYY-MM-DD
-     */
-    public List<ReservationDTO> getReservationsByDate(String date) {
-        if (useMock) {
-            return mockReservations.stream()
-                .filter(r -> r.getDateHeureArrivee() != null 
-                    && r.getDateHeureArrivee().startsWith(date))
-                .collect(Collectors.toList());
-        }
-        String url = BASE_URL + "/reservations/date/" + date;
-        ResponseEntity<ReservationDTO[]> response = restTemplate.getForEntity(url, ReservationDTO[].class);
-        return Arrays.asList(response.getBody());
-    }
-
-    /**
-     * Créer une nouvelle réservation (mock: ajoute à la liste locale)
+     * CREER RESERVATION
      */
     public ReservationDTO createReservation(ReservationDTO reservation) {
+
         if (useMock) {
-            // Simuler la création
+
             int newId = mockReservations.size() + 1;
+
             reservation.setIdReservation(newId);
-            
-            // Ajouter le nom de l'hôtel
+
             for (HotelDTO hotel : mockHotels) {
                 if (hotel.getIdHotel() == reservation.getIdHotel()) {
                     reservation.setNomHotel(hotel.getNomHotel());
-                    break;
                 }
             }
-            
-            // Ajouter le nom du client
+
             for (ClientDTO client : mockClients) {
                 if (client.getIdClient() == reservation.getIdClient()) {
                     reservation.setNomClient(client.getNomClient());
-                    break;
                 }
             }
-            
-            // Ajouter à la liste mock
-            List<ReservationDTO> updatedList = new java.util.ArrayList<>(mockReservations);
-            updatedList.add(reservation);
-            mockReservations = updatedList;
-            
+
+            List<ReservationDTO> updated = new ArrayList<>(mockReservations);
+            updated.add(reservation);
+
+            mockReservations = updated;
+
             return reservation;
         }
+
         String url = BASE_URL + "/reservations";
+
         return restTemplate.postForObject(url, reservation, ReservationDTO.class);
     }
+
+        /**
+     * Assignation
+     */
+
+    
+    public List<AssignationDTO> getAssignations() {
+    if (useMock) {
+        List<AssignationDTO> assignations = new ArrayList<>();
+
+        // Exemple simple : on regroupe les premières réservations dans un véhicule
+        AssignationDTO a1 = new AssignationDTO();
+        a1.setIdReservationVehicule(1);
+        a1.setNomVehicule("Toyota Hiace");
+        a1.setNbPlace(12);
+        a1.setCarburant("Diesel");
+        a1.setClients(List.of("Rasoaivo", "Tiana"));
+        a1.setLieux(List.of("Hotel Colbert", "Hotel Carlton"));
+        a1.setDateHeureDepart("2026-02-06 13:00:00");
+        a1.setDateHeureRetour("2026-02-06 18:00:00");
+        assignations.add(a1);
+
+        return assignations;
+    }
+
+    String url = BASE_URL + "/assignations";
+    ResponseEntity<AssignationDTO[]> response = restTemplate.getForEntity(url, AssignationDTO[].class);
+    return Arrays.asList(response.getBody());
 }
 
+public List<AssignationDTO> lancerAssignation() {
+    if (useMock) {
+        // Ici on peut renvoyer le même résultat que getAssignations ou recalculer
+        return getAssignations();
+    }
+
+    String url = BASE_URL + "/assignations/lancer";
+    ResponseEntity<AssignationDTO[]> response = restTemplate.postForEntity(url, null, AssignationDTO[].class);
+    return Arrays.asList(response.getBody());
+}
+
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Paramètres Véhicule</title>
+    <style>
+        /* Design Moderne Ultra-Rapide */
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f9; color: #333; margin: 0; padding: 40px 20px; }
+        .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        
+        h1 { color: #2c3e50; font-size: 1.5rem; text-align: center; margin-bottom: 25px; border-bottom: 2px solid #eef2f7; padding-bottom: 15px; }
+
+        /* Tableau de lecture */
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; background: #fafbfc; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #edf2f7; }
+        th { color: #7f8c8d; font-weight: 600; font-size: 0.9rem; width: 60%; }
+        td { color: #2c3e50; font-weight: bold; text-align: right; }
+
+        /* Formulaire de modification */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #555; font-size: 0.9rem; }
+        input { width: 100%; padding: 12px; border: 1px solid #dcdfe6; border-radius: 6px; box-sizing: border-box; transition: border-color 0.2s; font-size: 1rem; }
+        input:focus { border-color: #3498db; outline: none; background: #fdfefe; }
+        
+        /* Bouton */
+        button { width: 100%; padding: 14px; background-color: #3498db; color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
+        button:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Paramètres Véhicule</h1>
+
+    <!-- Affichage des valeurs actuelles -->
+    <table>
+        <tr>
+            <th>Vitesse Moyenne</th>
+            <td><span th:text="${paramv.vitessMoyenne}">40</span> <small>km/h</small></td>
+        </tr>
+        <tr>
+            <th>Temps d'Attente</th>
+            <td><span th:text="${paramv.tempsAttente}">10</span> <small>min</small></td>
+        </tr>
+    </table>
+
+    <!-- Formulaire de mise à jour -->
+    <form method="post" th:action="@{/param_vehicule/save}">
+        <div class="form-group">
+            <label>Nouvelle Vitesse Moyenne (km/h)</label>
+            <input type="number" name="vitessMoyenne" th:value="${paramv.vitessMoyenne}" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Nouveau Temps d'Attente (min)</label>
+            <input type="number" name="tempsAttente" th:value="${paramv.tempsAttente}" required>
+        </div>
+        
+        <button type="submit">Enregistrer les modifications</button>
+    </form>
+</div>
+
+</body>
+</html>
