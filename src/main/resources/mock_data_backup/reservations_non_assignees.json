@@ -1,0 +1,12 @@
+[
+    {
+      "idReservation": 1,
+      "idClient": 1,
+      "nomClient": "Rasoaivo",
+      "nbPassager": 2,
+      "dateHeureArrivee": "2026-02-06 14:00:00",
+      "idHotel": 1,
+      "nomHotel": "Hotel Colbert",
+      "status": "non_assignee"
+    }
+  ]

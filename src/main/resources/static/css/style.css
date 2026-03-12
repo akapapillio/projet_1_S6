@@ -1,0 +1,312 @@
+:root {
+    /* Luxury 4* Hotel Palette - Enhanced for premium hospitality */
+    --primary-color: #1e293b;         /* Slate-800 deep navy */
+    --secondary-color: #ffffff;       /* Pure white */
+    --accent-gold: #d4a017;           /* Luxury gold */
+    --accent-gold-dark: #b8860b;      /* Darker gold */
+    --background-color: #fdfbf5;      /* Warm cream */
+    --surface-color: #ffffff;         /* Card white */
+    --text-primary: #0f172a;          /* Dark slate */
+    --text-muted: #64748b;            /* Cool gray */
+    --border-color: #e2e8f0;          /* Light border */
+    --shadow-light: 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-medium: 0 8px 25px rgba(0,0,0,0.10);
+    --shadow-gold: 0 4px 12px rgba(212,160,23,0.25);
+    --border-radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-heading: 'Playfair Display', 'Times New Roman', serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Google Fonts + Font Awesome for luxury icons */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+/* Global Reset & Typography */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-body);
+    background: linear-gradient(135deg, var(--background-color) 0%, #f5f3ea 100%);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.page-title { 
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+.page-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent-gold);
+    margin: 1rem auto;
+    border-radius: 2px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* Luxury Header */
+.site-header {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-medium);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 3px solid var(--accent-gold);
+}
+.site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+.logo a {
+    color: var(--primary-color);
+    text-decoration: none;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.logo a:hover { color: var(--accent-gold); }
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1.5rem;
+}
+.navbar a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    position: relative;
+    font-size: 0.95rem;
+}
+.navbar a:hover, .navbar a.active {
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+    color: white;
+    box-shadow: var(--shadow-gold);
+    transform: translateY(-2px);
+}
+.navbar a i { margin-right: 0.5rem; }
+
+/* Cards - Premium Glassmorphism */
+.card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(16px);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: var(--transition);
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-gold);
+}
+
+/* Tables - Executive Style */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1rem 0;
+}
+th {
+    background: linear-gradient(135deg, var(--primary-color), #334155);
+    color: white;
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+td {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+tr:hover td {
+    background: rgba(212,160,23,0.05);
+}
+.luxury-empty {
+    text-align: center !important;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 3rem !important;
+}
+
+/* Forms - Elegant */
+.form-group {
+    margin-bottom: 1.75rem;
+}
+label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+input, select, textarea {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    background: rgba(255,255,255,0.7);
+}
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: var(--shadow-gold);
+    background: white;
+}
+
+/* Buttons - Gold Standard */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: var(--transition);
+    box-shadow: var(--shadow-light);
+    position: relative;
+    overflow: hidden;
+}
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+.btn:hover::before { left: 100%; }
+.btn-primary, .btn-gold {
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+    color: var(--secondary-color);
+}
+.btn-secondary {
+    background: linear-gradient(135deg, var(--primary-color), #334155);
+    color: var(--secondary-color);
+}
+.btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-gold);
+}
+.btn:active { transform: translateY(0) scale(0.98); }
+
+/* Filters */
+.filters { 
+    background: linear-gradient(135deg, rgba(30,41,59,0.05), rgba(212,160,23,0.05));
+    border: 1px solid rgba(212,160,23,0.15);
+}
+.form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 1.5rem;
+}
+.form-inline .form-group { margin-bottom: 0; flex: 1; min-width: 200px; }
+
+/* Utilities */
+.text-muted { color: var(--text-muted); }
+.text-bold { font-weight: 700; color: var(--text-primary); }
+.badge {
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 1.5rem 1rem; }
+    .navbar ul { 
+        flex-direction: column;
+        gap: 0.5rem;
+        position: fixed;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: var(--shadow-medium);
+        padding: 1rem;
+        display: none;
+    }
+    .navbar.active ul { display: flex; }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    background: rgba(30,41,59,0.05);
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
+}
+footer::before {
+    content: '🏨';
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.card, .page-title { animation: fadeInUp 0.6s ease-out; }
+

@@ -1,39 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Gestion des Hôtels</title>
-    <style>
-        /* Design Moderne "Zero Dépendance" */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; color: #333; margin: 0; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
-        
-        /* Tableaux */
-        .card { background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 25px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th { background: #3498db; color: white; text-align: left; padding: 12px; }
-        td { padding: 12px; border-bottom: 1px solid #eee; }
-        tr:hover { background: #f9f9f9; }
-
-        /* Formulaires */
-        .grid { display: flex; gap: 20px; flex-wrap: wrap; }
-        .form-section { flex: 1; min-width: 300px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
-        input, select { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        
-        /* Boutons */
-        button { width: 100%; padding: 12px; border: none; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-update { background: #f39c12; }
-        .btn-update:hover { background: #e67e22; }
-        .btn-add { background: #27ae60; }
-        .btn-add:hover { background: #219150; }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
-<div class="container">
-    <h1>Liste des Hôtels</h1>
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="container">
+    <h1 class="page-title">🏨 Gestion des Hôtels</h1>
 
     <div class="card">
         <table>
@@ -57,39 +32,46 @@
     <div class="grid">
         <!-- Modifier -->
         <div class="form-section card">
-            <h2 style="color: #f39c12; margin-top:0;">Modifier un Hôtel</h2>
+            <h2>Modifier un Hôtel</h2>
             <form th:action="@{/hotels/update}" method="post">
-                <label>Choisir un hôtel :</label>
-                <select name="idHotel" required>
-                    <option value="">-- Sélectionner --</option>
-                    <option th:each="hotel : ${lieux}" th:value="${hotel.idHotel}" th:text="${hotel.nomHotel}"></option>
-                </select>
-
-                <label>ID Lieu :</label>
-                <input type="number" name="idLieu" required>
-
-                <label>Nom Hôtel :</label>
-                <input type="text" name="nomHotel" required>
-
-                <button type="submit" class="btn-update">Mettre à jour</button>
+                <div class="form-group">
+                    <label>Choisir un hôtel :</label>
+                    <select name="idHotel" required>
+                        <option value="">-- Sélectionner --</option>
+                        <option th:each="hotel : ${lieux}" th:value="${hotel.idHotel}" th:text="${hotel.nomHotel}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ID Lieu :</label>
+                    <input type="number" name="idLieu" required>
+                </div>
+                <div class="form-group">
+                    <label>Nom Hôtel :</label>
+                    <input type="text" name="nomHotel" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Mettre à jour</button>
             </form>
         </div>
 
         <!-- Ajouter -->
         <div class="form-section card">
-            <h2 style="color: #27ae60; margin-top:0;">Ajouter un Hôtel</h2>
+            <h2>Ajouter un Hôtel</h2>
             <form th:action="@{/hotels/save}" method="post">
-                <label>ID Lieu :</label>
-                <input type="number" name="idLieu" required>
-
-                <label>Nom Hôtel :</label>
-                <input type="text" name="nomHotel" required>
-
-                <button type="submit" class="btn-add">Ajouter au système</button>
+                <div class="form-group">
+                    <label>ID Lieu :</label>
+                    <input type="number" name="idLieu" required>
+                </div>
+                <div class="form-group">
+                    <label>Nom Hôtel :</label>
+                    <input type="text" name="nomHotel" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Ajouter au système</button>
             </form>
         </div>
     </div>
-</div>
-
+</main>
+<footer>
+    © 2026 Workflow Réservations – Tous droits réservés
+</footer>
 </body>
 </html>

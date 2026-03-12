@@ -4,118 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Réservations</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        .filters {
-            background-color: #f5f5f5;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .filters label {
-            margin-right: 10px;
-            font-weight: bold;
-        }
-        .filters input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-right: 15px;
-        }
-        .filters button {
-            background-color: #2196F3;
-            color: white;
-            padding: 8px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .filters button:hover {
-            background-color: #1976D2;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-        .error {
-            color: red;
-            margin-bottom: 15px;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            color: #666;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <h1>Liste des Réservations</h1>
+    <header th:replace="~{fragments/header :: header}"></header>
+    <main class="container">
+        <h1 class="page-title">📋 Liste des Réservations</h1>
     
-    <!-- Filtres -->
-    <div class="filters">
-        <form th:action="@{/reservation/liste}" method="get">
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" th:value="${date}">
-            
-            <label for="heure">Heure:</label>
-            <input type="time" id="heure" name="heure" th:value="${heure}">
-            
-            <button type="submit">Filtrer</button>
-            <a th:href="@{/reservation/liste}" style="margin-left: 15px;">Réinitialiser</a>
-        </form>
-    </div>
+        <!-- Filtres -->
+        <div class="card filters">
+            <form th:action="@{/reservation/liste}" method="get" class="form-inline">
+                <div class="form-group">
+                    <label for="date">Date :</label>
+                    <input type="date" id="date" name="date" th:value="${date}">
+                </div>
+                <div class="form-group">
+                    <label for="heure">Heure :</label>
+                    <input type="time" id="heure" name="heure" th:value="${heure}">
+                </div>
+                <button type="submit" class="btn btn-primary">Filtrer</button>
+        <a th:href="@{/reservation/liste}" class="btn btn-secondary">Réinitialiser</a>
+            </form>
+        </div>
     
-    <div th:if="${error}" class="error" th:text="${error}"></div>
+        <div th:if="${error}" class="error" th:text="${error}"></div>
     
-    <!-- Tableau des réservations -->
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Client</th>
-                <th>Hôtel</th>
-                <th>Passagers</th>
-                <th>Date/Heure Arrivée</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="reservation : ${reservations}">
-                <td th:text="${reservation.idReservation}"></td>
-                <td th:text="${reservation.nomClient}"></td>
-                <td th:text="${reservation.nomHotel}"></td>
-                <td th:text="${reservation.nbPassager}"></td>
-                <td th:text="${reservation.dateHeureArrivee}"></td>
-            </tr>
-            <tr th:if="${#lists.isEmpty(reservations)}">
-                <td colspan="5" style="text-align: center; color: #999;">
-                    Aucune réservation trouvée
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- Tableau des réservations -->
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Client</th>
+                        <th>Hôtel</th>
+                        <th>Passagers</th>
+                        <th>Date/Heure Arrivée</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="reservation : ${reservations}">
+                        <td th:text="${reservation.idReservation}"></td>
+                        <td th:text="${reservation.nomClient}"></td>
+                        <td th:text="${reservation.nomHotel}"></td>
+                        <td th:text="${reservation.nbPassager}"></td>
+                        <td th:text="${reservation.dateHeureArrivee}"></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(reservations)}">
+                        <td colspan="5" class="luxury-empty">Aucune réservation trouvée</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     
-    <a th:href="@{/reservation/formulaire}">Créer une nouvelle réservation</a>
+        <a th:href="@{/reservation/formulaire}" class="btn btn-primary">Créer une nouvelle réservation</a>
+    </main>
+    <footer>
+        © 2026 Workflow Réservations – Tous droits réservés
+    </footer>
 </body>
 </html>
-

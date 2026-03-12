@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="header">
+    <header class="site-header">
+        <div class="container">
+            <div class="logo"><a th:href="@{/}"><i class="fas fa-hotel"></i> Luxury Hôtel Workflow</a></div>
+            <nav class="navbar">
+                <ul>
+                    <li><a th:href="@{/reservation/formulaire}"><i class="fas fa-plus"></i> Formulaire</a></li>
+                    <li><a th:href="@{/reservation/liste}"><i class="fas fa-list"></i> Liste</a></li>
+                    <li><a th:href="@{/param_vehicule}"><i class="fas fa-cog"></i> Paramètres</a></li>
+                    <li><a th:href="@{/vehicules}"><i class="fas fa-car"></i> Véhicules</a></li>
+                    <li><a th:href="@{/assignation}"><i class="fas fa-magic"></i> Assignation</a></li>
+                    <li><a th:href="@{/lieu}"><i class="fas fa-map-marker-alt"></i> Lieux</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</div>
+</body>
+</html>

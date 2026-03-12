@@ -3,42 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Assignation des Véhicules</title>
-    <style>
-        /* Base & Typo */
-        body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: #f0f2f5; color: #1c1e21; margin: 0; padding: 20px; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        
-        /* Titres */
-        h1 { color: #1a73e8; text-align: center; font-size: 2rem; margin-bottom: 30px; border-bottom: 3px solid #1a73e8; display: inline-block; width: 100%; padding-bottom: 10px; }
-        h2 { color: #444; font-size: 1.4rem; margin-top: 40px; display: flex; align-items: center; }
-        h2::before { content: ""; display: inline-block; width: 10px; height: 24px; background: #1a73e8; margin-right: 12px; border-radius: 2px; }
-
-        /* Cartes et Tableaux */
-        .card { background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); overflow: hidden; margin-top: 15px; }
-        table { width: 100%; border-collapse: collapse; background: white; }
-        th { background-color: #f8f9fa; color: #5f6368; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; padding: 15px; text-align: left; border-bottom: 2px solid #edf0f2; }
-        td { padding: 15px; border-bottom: 1px solid #edf0f2; font-size: 0.95rem; }
-        tr:hover { background-color: #fbfcfe; }
-
-        /* Badges pour les listes (Clients/Arrêts) */
-        .badge { background: #e8f0fe; color: #1967d2; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 500; }
-        .arrow { color: #dadce0; margin: 0 5px; }
-
-        /* Bouton Lancer */
-        .action-bar { text-align: center; margin: 30px 0; }
-        .btn-launch { background: #1a73e8; color: white; border: none; padding: 14px 32px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 6px rgba(26, 115, 232, 0.3); }
-        .btn-launch:hover { background: #1557b0; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(26, 115, 232, 0.4); }
-        .btn-launch:active { transform: translateY(0); }
-
-        /* Colonnes spécifiques */
-        .text-bold { font-weight: 600; color: #202124; }
-        .fuel-indicator { color: #188038; font-weight: bold; }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
-<div class="container">
-    <h1>Assignation des Réservations</h1>
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="container">
+    <h1 class="page-title">🎯 Assignation Optimale</h1>
 
     <h2>Réservations en attente</h2>
     <div class="card">
@@ -64,7 +34,7 @@
 
     <div class="action-bar">
         <form th:action="@{/assignation/lancer}" method="post">
-            <button type="submit" class="btn-launch">⚡ Lancer l'algorithme d'assignation</button>
+            <button type="submit" class="btn btn-primary">⚡ Lancer l'algorithme</button>
         </form>
     </div>
 
@@ -93,7 +63,7 @@
                         <small th:text="${#strings.arrayJoin(a.lieux, ' → ')}"></small>
                     </td>
                     <td>
-                        <div style="font-size: 0.8rem; color: #5f6368;">
+                        <div class="text-muted" style="font-size: 0.8rem;">
                             Départ: <span th:text="${a.dateHeureDepart}"></span><br>
                             Retour: <span th:text="${a.dateHeureRetour}"></span>
                         </div>
@@ -102,7 +72,9 @@
             </tbody>
         </table>
     </div>
-</div>
-
+</main>
+<footer>
+    © 2026 Workflow Réservations – Tous droits réservés
+</footer>
 </body>
 </html>

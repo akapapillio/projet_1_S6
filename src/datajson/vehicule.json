@@ -1,0 +1,51 @@
+[
+    {
+        "idVehicule": 5,
+        "model": "Light Car",
+        "nbPlace": 4,
+        "idCarburant": 1,
+        "nomCarburant": "Essence"
+    },
+    {
+        "idVehicule": 7,
+        "model": "Mercedes Sprinter",
+        "nbPlace": 15,
+        "idCarburant": 1,
+        "nomCarburant": "Essence"
+    },
+    {
+        "idVehicule": 4,
+        "model": "Nissan Urvan",
+        "nbPlace": 10,
+        "idCarburant": 2,
+        "nomCarburant": "Diesel"
+    },
+    {
+        "idVehicule": 3,
+        "model": "Renault Trafic",
+        "nbPlace": 8,
+        "idCarburant": 1,
+        "nomCarburant": "Essence"
+    },
+    {
+        "idVehicule": 8,
+        "model": "SprinterC",
+        "nbPlace": 15,
+        "idCarburant": 1,
+        "nomCarburant": "Essence"
+    },
+    {
+        "idVehicule": 2,
+        "model": "Toyota Coaster",
+        "nbPlace": 20,
+        "idCarburant": 2,
+        "nomCarburant": "Diesel"
+    },
+    {
+        "idVehicule": 1,
+        "model": "Toyota Hiace",
+        "nbPlace": 12,
+        "idCarburant": 2,
+        "nomCarburant": "Diesel"
+    }
+]

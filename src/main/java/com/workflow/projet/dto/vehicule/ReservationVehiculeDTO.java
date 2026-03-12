@@ -1,5 +1,7 @@
 package com.workflow.projet.dto.vehicule;
 
+import java.util.List;
+
 public class ReservationVehiculeDTO {
 
     private int idReservationVehicule;
@@ -7,6 +9,9 @@ public class ReservationVehiculeDTO {
     private String dateHeureRetour;
     private int idVehicule;
     private String modelVehicule;
+    private int nbPlaceVehicule;
+    private String nomCarburant;
+    private List<PassagerDTO> passagers;
 
     public ReservationVehiculeDTO() {}
 
@@ -19,6 +24,7 @@ public class ReservationVehiculeDTO {
         this.modelVehicule = modelVehicule;
     }
 
+    // Existing getters/setters
     public int getIdReservationVehicule() {
         return idReservationVehicule;
     }
@@ -57,5 +63,30 @@ public class ReservationVehiculeDTO {
 
     public void setModelVehicule(String modelVehicule) {
         this.modelVehicule = modelVehicule;
+    }
+
+    // New getters/setters
+    public int getNbPlaceVehicule() {
+        return nbPlaceVehicule;
+    }
+
+    public void setNbPlaceVehicule(int nbPlaceVehicule) {
+        this.nbPlaceVehicule = nbPlaceVehicule;
+    }
+
+    public String getNomCarburant() {
+        return nomCarburant;
+    }
+
+    public void setNomCarburant(String nomCarburant) {
+        this.nomCarburant = nomCarburant;
+    }
+
+    public List<PassagerDTO> getPassagers() {
+        return passagers;
+    }
+
+    public void setPassagers(List<PassagerDTO> passagers) {
+        this.passagers = passagers;
     }
 }

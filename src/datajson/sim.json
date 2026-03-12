@@ -1,0 +1,84 @@
+[
+    {
+        "idReservationVehicule": 0,
+        "dateHeureDepart": "2026-03-15 08:00:00",
+        "dateHeureRetour": "2026-03-15 09:10:00",
+        "idVehicule": 7,
+        "modelVehicule": "Mercedes Sprinter",
+        "nbPlaceVehicule": 15,
+        "nomCarburant": "Essence",
+        "passagers": [
+            {
+                "idReservation": 6,
+                "nbPassager": 4,
+                "dateHeureArrivee": "2026-03-15 08:30:00.0",
+                "status": "EN_ATTENTE",
+                "idHotel": 2,
+                "idClient": 1,
+                "libelleLieu": "Quartier Ankorondrano",
+                "nomHotel": "Hotel Ibis",
+                "nomClient": "Groupe Air France",
+                "idLieu": 3
+            },
+            {
+                "idReservation": 7,
+                "nbPassager": 4,
+                "dateHeureArrivee": "2026-03-15 08:30:00.0",
+                "status": "EN_ATTENTE",
+                "idHotel": 2,
+                "idClient": 1,
+                "libelleLieu": "Quartier Ankorondrano",
+                "nomHotel": "Hotel Ibis",
+                "nomClient": "Groupe Air France",
+                "idLieu": 3
+            },
+            {
+                "idReservation": 8,
+                "nbPassager": 4,
+                "dateHeureArrivee": "2026-03-15 08:30:00.0",
+                "status": "EN_ATTENTE",
+                "idHotel": 2,
+                "idClient": 2,
+                "libelleLieu": "Quartier Ankorondrano",
+                "nomHotel": "Hotel Ibis",
+                "nomClient": "Famille Rabe",
+                "idLieu": 3
+            }
+        ]
+    },
+    {
+        "idReservationVehicule": 0,
+        "dateHeureDepart": "2026-03-15 08:00:00",
+        "dateHeureRetour": "2026-03-15 09:10:00",
+        "idVehicule": 8,
+        "modelVehicule": "SprinterC",
+        "nbPlaceVehicule": 15,
+        "nomCarburant": "Essence",
+        "passagers": [
+            {
+                "idReservation": 9,
+                "nbPassager": 4,
+                "dateHeureArrivee": "2026-03-15 08:30:00.0",
+                "status": "EN_ATTENTE",
+                "idHotel": 2,
+                "idClient": 2,
+                "libelleLieu": "Quartier Ankorondrano",
+                "nomHotel": "Hotel Ibis",
+                "nomClient": "Famille Rabe",
+                "idLieu": 3
+            },
+            {
+                "idReservation": 10,
+                "nbPassager": 4,
+                "dateHeureArrivee": "2026-03-15 08:30:00.0",
+                "status": "EN_ATTENTE",
+                "idHotel": 2,
+                "idClient": 2,
+                "libelleLieu": "Quartier Ankorondrano",
+                "nomHotel": "Hotel Ibis",
+                "nomClient": "Famille Rabe",
+                "idLieu": 3
+            }
+        ]
+    }
+]

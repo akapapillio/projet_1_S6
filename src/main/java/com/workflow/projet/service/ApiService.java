@@ -32,6 +32,7 @@ public class ApiService {
     private List<VehiculeDTO> mockVehicules;
     private ParamVehiculeDTO mockParamVehicule;
     private List<CarburantDTO> mockCarburants;
+    private List<ReservationVehiculeDTO> mockReservationVehicules;
 
     public ApiService() {
         loadMockData();
@@ -50,6 +51,8 @@ public class ApiService {
 
             ClassPathResource paramResource = new ClassPathResource("mock_data/paramVehicule.json");
             mockParamVehicule = objectMapper.readValue(paramResource.getInputStream(), ParamVehiculeDTO.class);
+
+            mockReservationVehicules = readList("mock_data/reservationVehicules.json", new TypeReference<List<ReservationVehiculeDTO>>() {});
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -320,17 +323,28 @@ public class ApiService {
     if (useMock) {
         List<AssignationDTO> assignations = new ArrayList<>();
 
-        // Exemple simple : on regroupe les premières réservations dans un véhicule
-        AssignationDTO a1 = new AssignationDTO();
-        a1.setIdReservationVehicule(1);
-        a1.setNomVehicule("Toyota Hiace");
-        a1.setNbPlace(12);
-        a1.setCarburant("Diesel");
-        a1.setClients(List.of("Rasoaivo", "Tiana"));
-        a1.setLieux(List.of("Hotel Colbert", "Hotel Carlton"));
-        a1.setDateHeureDepart("2026-02-06 13:00:00");
-        a1.setDateHeureRetour("2026-02-06 18:00:00");
-        assignations.add(a1);
+        if (mockReservationVehicules == null || mockReservationVehicules.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        for (ReservationVehiculeDTO rv : mockReservationVehicules) {
+            AssignationDTO a = new AssignationDTO();
+            a.setIdReservationVehicule(rv.getIdReservationVehicule());
+            a.setNomVehicule(rv.getModelVehicule());
+            a.setNbPlace(rv.getNbPlaceVehicule());
+            a.setCarburant(rv.getNomCarburant());
+            
+            List<String> clients = rv.getPassagers().stream().map(PassagerDTO::getNomClient).collect(Collectors.toList());
+            a.setClients(clients);
+            
+            List<String> lieux = rv.getPassagers().stream().map(PassagerDTO::getLibelleLieu).distinct().collect(Collectors.toList());
+            a.setLieux(lieux);
+            
+            a.setDateHeureDepart(rv.getDateHeureDepart());
+            a.setDateHeureRetour(rv.getDateHeureRetour());
+            
+            assignations.add(a);
+        }
 
         return assignations;
     }

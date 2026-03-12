@@ -3,45 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestion des Véhicules</title>
-    <style>
-        /* Design Cohérent & Ultra-Rapide */
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
-        .container { max-width: 1100px; margin: 0 auto; }
-        
-        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
-        h2 { font-size: 1.2rem; color: #2980b9; margin-top: 0; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; }
-
-        /* Tableaux */
-        .card { background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); padding: 20px; margin-bottom: 30px; }
-        table { width: 100%; border-collapse: collapse; }
-        th { background: #2980b9; color: white; text-align: left; padding: 12px; font-weight: 600; }
-        td { padding: 12px; border-bottom: 1px solid #eee; }
-        tr:hover { background: #f9fbfd; }
-
-        /* Layout Grille pour Formulaires */
-        .grid { display: flex; gap: 20px; flex-wrap: wrap; }
-        .form-section { flex: 1; min-width: 320px; }
-
-        /* Champs de saisie */
-        label { display: block; margin-bottom: 6px; font-weight: 600; color: #555; font-size: 0.9rem; }
-        input, select { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 0.95rem; }
-        input:focus, select:focus { border-color: #2980b9; outline: none; box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.1); }
-
-        /* Boutons */
-        button { width: 100%; padding: 12px; border: none; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; }
-        .btn-update { background: #f39c12; }
-        .btn-update:hover { background: #e67e22; }
-        .btn-add { background: #27ae60; }
-        .btn-add:hover { background: #219150; }
-
-        /* Badges */
-        .badge { background: #ebf5fb; color: #2980b9; padding: 3px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
-<div class="container">
-    <h1>Flotte de Véhicules</h1>
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="container">
+    <h1 class="page-title">🚗 Gestion de la Flotte</h1>
 
     <!-- Liste des véhicules -->
     <div class="card">
@@ -58,7 +25,7 @@
             <tbody>
                 <tr th:each="v : ${vehicules}">
                     <td th:text="${v.idVehicule}"></td>
-                    <td style="font-weight: 600;" th:text="${v.model}"></td>
+                    <td class="text-bold" th:text="${v.model}"></td>
                     <td><span class="badge" th:text="${v.nbPlace} + ' places'"></span></td>
                     <td th:text="${v.nomCarburant}"></td>
                 </tr>
@@ -71,25 +38,29 @@
         <div class="form-section card">
             <h2>Modifier un véhicule</h2>
             <form th:action="@{/vehicules/update}" method="post">
-                <label>Sélectionner le véhicule</label>
-                <select name="idVehicule" required>
-                    <option value="" disabled selected>-- Choisir dans la liste --</option>
-                    <option th:each="v : ${vehicules}" th:value="${v.idVehicule}" th:text="${v.model}"></option>
-                </select>
-
-                <label>Modèle</label>
-                <input type="text" name="model" placeholder="ex: Toyota Hiace" required>
-
-                <label>Nombre de places</label>
-                <input type="number" name="nbPlace" min="1" required>
-
-                <label>Type de carburant</label>
-                <select name="idCarburant" required>
-                    <option value="" disabled selected>-- Sélectionner --</option>
-                    <option th:each="c : ${carburants}" th:value="${c.idCarburant}" th:text="${c.nomCarburant}"></option>
-                </select>
-
-                <button type="submit" class="btn-update">Mettre à jour les données</button>
+                <div class="form-group">
+                    <label>Sélectionner le véhicule</label>
+                    <select name="idVehicule" required>
+                        <option value="" disabled selected>-- Choisir dans la liste --</option>
+                        <option th:each="v : ${vehicules}" th:value="${v.idVehicule}" th:text="${v.model}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Modèle</label>
+                    <input type="text" name="model" placeholder="ex: Toyota Hiace" required>
+                </div>
+                <div class="form-group">
+                    <label>Nombre de places</label>
+                    <input type="number" name="nbPlace" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Type de carburant</label>
+                    <select name="idCarburant" required>
+                        <option value="" disabled selected>-- Sélectionner --</option>
+                        <option th:each="c : ${carburants}" th:value="${c.idCarburant}" th:text="${c.nomCarburant}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Mettre à jour les données</button>
             </form>
         </div>
 
@@ -97,23 +68,28 @@
         <div class="form-section card">
             <h2>Nouveau véhicule</h2>
             <form th:action="@{/vehicules/save}" method="post">
-                <label>Nom du modèle</label>
-                <input type="text" name="model" placeholder="ex: Mercedes Sprinter" required>
-
-                <label>Capacité (places)</label>
-                <input type="number" name="nbPlace" min="1" required>
-
-                <label>Carburant</label>
-                <select name="idCarburant" required>
-                    <option value="" disabled selected>-- Sélectionner --</option>
-                    <option th:each="c : ${carburants}" th:value="${c.idCarburant}" th:text="${c.nomCarburant}"></option>
-                </select>
-
-                <button type="submit" class="btn-add">Ajouter à la flotte</button>
+                <div class="form-group">
+                    <label>Nom du modèle</label>
+                    <input type="text" name="model" placeholder="ex: Mercedes Sprinter" required>
+                </div>
+                <div class="form-group">
+                    <label>Capacité (places)</label>
+                    <input type="number" name="nbPlace" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Carburant</label>
+                    <select name="idCarburant" required>
+                        <option value="" disabled selected>-- Sélectionner --</option>
+                        <option th:each="c : ${carburants}" th:value="${c.idCarburant}" th:text="${c.nomCarburant}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Ajouter à la flotte</button>
             </form>
         </div>
     </div>
-</div>
-
+</main>
+<footer>
+    © 2026 Workflow Réservations – Tous droits réservés
+</footer>
 </body>
 </html>

@@ -1,0 +1,122 @@
+[
+    {
+        "idReservation": 10,
+        "nbPassager": 4,
+        "dateHeureArrivee": "2026-03-15 08:30:00.0",
+        "status": "EN_ATTENTE",
+        "idHotel": 2,
+        "idClient": 2,
+        "libelleLieu": "Quartier Ankorondrano",
+        "nomHotel": "Hotel Ibis",
+        "nomClient": "Famille Rabe",
+        "idLieu": 3
+    },
+    {
+        "idReservation": 6,
+        "nbPassager": 4,
+        "dateHeureArrivee": "2026-03-15 08:30:00.0",
+        "status": "EN_ATTENTE",
+        "idHotel": 2,
+        "idClient": 1,
+        "libelleLieu": "Quartier Ankorondrano",
+        "nomHotel": "Hotel Ibis",
+        "nomClient": "Groupe Air France",
+        "idLieu": 3
+    },
+    {
+        "idReservation": 7,
+        "nbPassager": 4,
+        "dateHeureArrivee": "2026-03-15 08:30:00.0",
+        "status": "EN_ATTENTE",
+        "idHotel": 2,
+        "idClient": 1,
+        "libelleLieu": "Quartier Ankorondrano",
+        "nomHotel": "Hotel Ibis",
+        "nomClient": "Groupe Air France",
+        "idLieu": 3
+    },
+    {
+        "idReservation": 8,
+        "nbPassager": 4,
+        "dateHeureArrivee": "2026-03-15 08:30:00.0",
+        "status": "EN_ATTENTE",
+        "idHotel": 2,
+        "idClient": 2,
+        "libelleLieu": "Quartier Ankorondrano",
+        "nomHotel": "Hotel Ibis",
+        "nomClient": "Famille Rabe",
+        "idLieu": 3
+    },
+    {
+        "idReservation": 9,
+        "nbPassager": 4,
+        "dateHeureArrivee": "2026-03-15 08:30:00.0",
+        "status": "EN_ATTENTE",
+        "idHotel": 2,
+        "idClient": 2,
+        "libelleLieu": "Quartier Ankorondrano",
+        "nomHotel": "Hotel Ibis",
+        "nomClient": "Famille Rabe",
+        "idLieu": 3
+    },
+    {
+        "idReservation": 5,
+        "nbPassager": 7,
+        "dateHeureArrivee": "2026-03-12 14:00:00.0",
+        "status": "EN_ATTENTE",
+        "idHotel": 4,
+        "idClient": 5,
+        "libelleLieu": "Quartier Isoraka",
+        "nomHotel": "Hotel Sakamanga",
+        "nomClient": "Equipe Tech",
+        "idLieu": 5
+    },
+    {
+        "idReservation": 4,
+        "nbPassager": 18,
+        "dateHeureArrivee": "2026-03-12 10:00:00.0",
+        "status": "EN_ATTENTE",
+        "idHotel": 3,
+        "idClient": 3,
+        "libelleLieu": "Quartier Mahamasina",
+        "nomHotel": "Hotel Carlton",
+        "nomClient": "Mission ONU",
+        "idLieu": 4
+    },
+    {
+        "idReservation": 3,
+        "nbPassager": 2,
+        "dateHeureArrivee": "2026-03-12 08:40:00.0",
+        "status": "EN_ATTENTE",
+        "idHotel": 2,
+        "idClient": 4,
+        "libelleLieu": "Quartier Ankorondrano",
+        "nomHotel": "Hotel Ibis",
+        "nomClient": "Touriste Solo",
+        "idLieu": 3
+    },
+    {
+        "idReservation": 2,
+        "nbPassager": 3,
+        "dateHeureArrivee": "2026-03-12 08:35:00.0",
+        "status": "EN_ATTENTE",
+        "idHotel": 1,
+        "idClient": 2,
+        "libelleLieu": "Quartier Colbert",
+        "nomHotel": "Hotel Colbert",
+        "nomClient": "Famille Rabe",
+        "idLieu": 2
+    },
+    {
+        "idReservation": 1,
+        "nbPassager": 6,
+        "dateHeureArrivee": "2026-03-12 08:30:00.0",
+        "status": "EN_ATTENTE",
+        "idHotel": 1,
+        "idClient": 1,
+        "libelleLieu": "Quartier Colbert",
+        "nomHotel": "Hotel Colbert",
+        "nomClient": "Groupe Air France",
+        "idLieu": 2
+    }
+]

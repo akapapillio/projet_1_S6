@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenue</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="container">
+    <div class="card">
+        <h1 class="page-title">🏨 Bienvenue sur Luxury Hôtel Workflow</h1>
+        <p>Vous êtes maintenant sur la page d'accueil. Cliquez ci-dessous pour accéder au tableau de bord.</p>
+        <a th:href="@{/reservation/liste}" class="btn btn-primary"><i class="fas fa-tachometer-alt"></i> Accéder au Dashboard</a>
+    </div>
+</main>
+<footer>
+    © 2026 Workflow Réservations – Tous droits réservés
+</footer>
+</body>
+</html>

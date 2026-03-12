@@ -1,0 +1,7 @@
+[
+    {"idHotel": 1, "nomHotel": "Hotel Colbert"  ,"idLieu":1},
+    {"idHotel": 2, "nomHotel": "Hotel Carlton"  ,"idLieu":2},
+    {"idHotel": 3, "nomHotel": "Hotel Le Louvre","idLieu":3},
+    {"idHotel": 4, "nomHotel": "Hotel Ibis"     ,"idLieu":4}
+]
+

@@ -1,0 +1,32 @@
+[
+    {
+        "idLieu": 1,
+        "code": "AERO-TNR",
+        "libelle": "Aéroport Ivato"
+    },
+    {
+        "idLieu": 6,
+        "code": "HTL-GLC",
+        "libelle": "Quartier Analakely"
+    },
+    {
+        "idLieu": 3,
+        "code": "HTL-IBS",
+        "libelle": "Quartier Ankorondrano"
+    },
+    {
+        "idLieu": 2,
+        "code": "HTL-COL",
+        "libelle": "Quartier Colbert"
+    },
+    {
+        "idLieu": 5,
+        "code": "HTL-SAK",
+        "libelle": "Quartier Isoraka"
+    },
+    {
+        "idLieu": 4,
+        "code": "HTL-CRT",
+        "libelle": "Quartier Mahamasina"
+    }
+]
